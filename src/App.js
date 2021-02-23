@@ -28,8 +28,8 @@ const App = () => {
   const onMouseMove = useCallback((e) => {
     mouse.current = [e.clientX - window.innerWidth / 2, e.clientY - window.innerHeight / 2];
     mousePos.current = getMousePos(e);
-    updateX(posX + ((mouse.current[0] - posX) * 0.005));
-    updateY(posY + ((- mouse.current[1] - posY) * 0.005));
+    updateX(lerp(posX, (posX + ((mouse.current[0] - posX) * 0.05)), 0.1));
+    updateY(lerp(posY, (posY + ((- mouse.current[1] - posY) * 0.05)), 0.1));
     //console.log(mouse.current[0]);
   }, [])
 
