@@ -1,7 +1,6 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react'
 import * as THREE from 'three';
 import { extend, useThree, useFrame } from 'react-three-fiber';
-import lerp from 'lerp';
 
 const tempObject = new THREE.Object3D();
 const tempColor = new THREE.Color();
@@ -28,7 +27,7 @@ const Main = ({mouse}) => {
             for(let y = 0; y < 10; y++){
                     const id = i++
 
-                    tempObject.position.set(5 - x, 5 - y, 5);
+                    tempObject.position.set(5 - x, 5 - y, 0);
                     tempObject.rotation.y = Math.sin(x / 4 + time) + Math.sin(y / 4 + time) + Math.sin(5 / 4 + time)
                     tempObject.rotation.z = tempObject.rotation.y * 2
                     if (hovered !== previous.current) {
