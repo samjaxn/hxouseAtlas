@@ -1,6 +1,7 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react'
 import * as THREE from 'three';
 import { extend, useThree, useFrame } from 'react-three-fiber';
+import { useSpring, animated } from 'react-spring/three';
 
 const tempObject = new THREE.Object3D();
 const tempColor = new THREE.Color();

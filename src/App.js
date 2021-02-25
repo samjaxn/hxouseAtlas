@@ -1,8 +1,9 @@
-import React, { useRef, useCallback, useState, useEffect } from 'react'
+import React, { useRef, useCallback, useState, useEffect, Suspense } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from 'react-three-fiber'
 import './css/styles.css'
 import Main from './components/Main';
+import Jacky from './components/Jacky';
 import { getMousePos } from "./javascript/utils"
 import lerp from 'lerp';
 
@@ -38,13 +39,15 @@ const App = () => {
       {/* <div id="info">Description</div> */}
       <Canvas
       onMouseMove={onMouseMove}
-      gl={{ antialias: false, alpha: false }}
+      gl={{ antialias: true, alpha: false }}
       //camera={camera}
       onCreated={({ gl }) => gl.setClearColor('black')}>
         <Camera position={[posX,posY,20]}/>
         <ambientLight />
         <pointLight position={[150, 150, 150]} intensity={0.55} />
-        <Main mouse={mouse}/>
+        <Suspense fallback={null}>
+            <Jacky mouse={mouse}/>
+        </Suspense>
       </Canvas>
     </div>
   );
