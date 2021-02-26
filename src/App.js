@@ -2,8 +2,10 @@ import React, { useRef, useCallback, useState, useEffect, Suspense } from 'react
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from 'react-three-fiber'
 import './css/styles.css'
-import Main from './components/Main';
+import Boxes from './components/Boxes';
 import Jacky from './components/Jacky';
+import NodeObject from './components/NodeObject'
+import Main from './components/Main'
 import { getMousePos } from "./javascript/utils"
 import lerp from 'lerp';
 
@@ -45,9 +47,8 @@ const App = () => {
         <Camera position={[posX,posY,20]}/>
         <ambientLight />
         <pointLight position={[150, 150, 150]} intensity={0.55} />
-        <Suspense fallback={null}>
-            <Jacky mouse={mouse}/>
-        </Suspense>
+        {/* <Jacky mouse={mouse}/> */}
+        <Main mouse={mouse} />
       </Canvas>
     </div>
   );
