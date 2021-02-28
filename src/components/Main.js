@@ -33,14 +33,47 @@ const Main = ({mouse}) => {
                 node.id == clickedNode ? positions.current.get(node.id).current = [0,0,0] : positions.current.get(node.id).current = node.data.pos
             })
             //change the positions of the linked nodes to be around the clicked node
-            let i = 0
+            let linkedNodes = []
             g.forEachLinkedNode(clickedNode, (linkedNode) => {
-                positions.current.get(linkedNode.id).current = [i,5,i]
-                i++
-                console.log("Connected node: ", linkedNode.id, linkedNode.data)
+                //positions.current.get(linkedNode.id).current = [i,5,i]
+                //i++
+                linkedNodes.push(linkedNode)
+                //console.log("Connected node: ", linkedNode.id, linkedNode.data)
             })
+            linkedNodesPos(linkedNodes)
             setActiveNode(clickedNode)
         }
+    }
+
+    const linkedNodesPos = (linkedNodes) => {
+        let length = linkedNodes.length
+        let angleIncrement = 360/length
+        let angle = 0
+
+        console.log(angleIncrement)
+        linkedNodes.forEach((node, index) => {
+            positions.current.get(node.id).current = [calcX(angle), calcY(angle), calcZ(angle)]
+            angle += angleIncrement
+        })
+    }
+
+    const calcX = (angle) => {
+        angle = toRadians(angle)
+        return (5 * Math.sin(angle))
+    }
+
+    const calcY = (angle) => {
+        angle = toRadians(angle)
+        return (5 * Math.cos(angle))
+    }
+
+    const calcZ = (angle) => {
+        angle = toRadians(angle)
+        return (4 * Math.random() - 2)
+    }
+
+    const toRadians = (angle) => {
+        return angle * (Math.PI / 180);
     }
     
     //adds the posRef to a list with the key of the node it is the posRef for
