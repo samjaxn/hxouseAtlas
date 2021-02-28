@@ -5,7 +5,7 @@ import { useLoader, useFrame, useThree } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import lerp from 'lerp'
 
-const NodeObject = ({mouse, scene, position=[0,0,0], ...props}) => {
+const NodeObject = ({mouse, scene, position1=[0,0,0], position2=[0,-6,0], testing=false, ...props}) => {
     const object = useRef()
 
     const { size, viewport, aspect } = useThree()
@@ -20,10 +20,23 @@ const NodeObject = ({mouse, scene, position=[0,0,0], ...props}) => {
         config: { mass: 10, tension: 1000, friction: 300, precision: 0.00001 }
     })
 
+    //keep this use frame but remove the click if statement and put that in an external method, use just one position and have that position changed based on what was clicked and what should be displayed and where
     useFrame(() => {
-        if(object.current){        
-            click ? object.current.position.y = lerp(object.current.position.y, -6, 0.1) : object.current.position.y = lerp(object.current.position.y,  position[1], 0.1)
-            //console.log(click)
+        if(object.current){
+            if(click){
+                object.current.position.x = lerp(object.current.position.x, position2[0], 0.1)
+                object.current.position.y = lerp(object.current.position.y, position2[1], 0.1)
+                object.current.position.z = lerp(object.current.position.z, position2[2], 0.1)
+            }
+            else{
+                object.current.position.x = lerp(object.current.position.x,  position1[0], 0.1)
+                object.current.position.y = lerp(object.current.position.y,  position1[1], 0.1)
+                object.current.position.z = lerp(object.current.position.z,  position1[2], 0.1)
+            }
+            if(testing){
+                console.log(object.current.position.x)
+            }
+            
         }
     })
 
@@ -33,7 +46,6 @@ const NodeObject = ({mouse, scene, position=[0,0,0], ...props}) => {
         dispose={null}
         {...spring}
         {...props}
-        position={position}
         onPointerOver={e => setHover(true)}
         onPointerOut={e => setHover(false)}
         onClick={e => setActive(!click)}>
