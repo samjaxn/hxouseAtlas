@@ -5,8 +5,9 @@ import { useLoader, useFrame, useThree } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import lerp from 'lerp'
 
-const NodeObject = ({mouse, scene, position1=[0,0,0], position2=[0,-6,0], testing=false, ...props}) => {
+const NodeObject = ({value, mouse, scene, pos=[0,0,0], onClick, getPosRef, testing=false, ...props}) => {
     const object = useRef()
+    const position = useRef(pos)
 
     const { size, viewport, aspect } = useThree()
     const aspectX = size.width/ viewport.width
@@ -20,21 +21,18 @@ const NodeObject = ({mouse, scene, position1=[0,0,0], position2=[0,-6,0], testin
         config: { mass: 10, tension: 1000, friction: 300, precision: 0.00001 }
     })
 
-    //keep this use frame but remove the click if statement and put that in an external method, use just one position and have that position changed based on what was clicked and what should be displayed and where
+    useEffect(() => {
+        getPosRef(value, position)
+    }, [])
+
     useFrame(() => {
         if(object.current){
-            if(click){
-                object.current.position.x = lerp(object.current.position.x, position2[0], 0.1)
-                object.current.position.y = lerp(object.current.position.y, position2[1], 0.1)
-                object.current.position.z = lerp(object.current.position.z, position2[2], 0.1)
-            }
-            else{
-                object.current.position.x = lerp(object.current.position.x,  position1[0], 0.1)
-                object.current.position.y = lerp(object.current.position.y,  position1[1], 0.1)
-                object.current.position.z = lerp(object.current.position.z,  position1[2], 0.1)
-            }
+            (Math.abs(object.current.position.x - position.current[0]) > 0.01) ? object.current.position.x = lerp(object.current.position.x, position.current[0], 0.1) : object.current.position.x = position.current[0];
+            (Math.abs(object.current.position.y - position.current[1]) > 0.01) ? object.current.position.y = lerp(object.current.position.y, position.current[1], 0.1) : object.current.position.y = position.current[1];
+            (Math.abs(object.current.position.z - position.current[2]) > 0.01) ? object.current.position.z = lerp(object.current.position.z, position.current[2], 0.1) : object.current.position.z = position.current[2];
+
             if(testing){
-                console.log(object.current.position.x)
+                //console.log(object.current.position.y)
             }
             
         }
@@ -48,7 +46,10 @@ const NodeObject = ({mouse, scene, position1=[0,0,0], position2=[0,-6,0], testin
         {...props}
         onPointerOver={e => setHover(true)}
         onPointerOut={e => setHover(false)}
-        onClick={e => setActive(!click)}>
+        // onClick={e => setActive(!click)}>
+        onClick={e => {
+            onClick(value)
+        }}>
             {scene}
         </animated.group>
     )

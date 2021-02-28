@@ -22,7 +22,7 @@ const Camera = (props) => {
   }, []);
   useFrame(() => {
     ref.current.lookAt(new THREE.Vector3(0,0,0))
-    ref.current.updateMatrixWorld()
+    //ref.current.updateMatrixWorld()
   });
   return <perspectiveCamera ref={ref} {...props} />
 }
