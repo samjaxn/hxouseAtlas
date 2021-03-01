@@ -1,6 +1,7 @@
 import React, { useRef, useCallback, useState, useEffect, Suspense } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from 'react-three-fiber'
+import { ResizeObserver } from '@juggle/resize-observer'
 
 import './css/styles.css'
 
@@ -45,6 +46,7 @@ const App = () => {
     <div id="root">
       {/* <div id="info">Description</div> */}
       <Canvas
+      resize={{ polyfill: ResizeObserver }}
       onMouseMove={onMouseMove}
       gl={{ antialias: true, alpha: false }}
       //camera={camera}
