@@ -7,24 +7,29 @@ const Main = ({mouse}) => {
 
     let positions = useRef(new Map())
 
+    //need this for react to re render the components after a click is made
     let [activeNode, setActiveNode] = useState()
 
     var createGraph = require('ngraph.graph');
     var g = createGraph();
 
-    // g.addNode('a', { scene: <JackyObject />, pos: [0,5,1]})
-    // g.addNode('b', { scene: <JackyObject />, pos: [0,-5,2]})
-    // g.addNode('c', { scene: <JackyObject />, pos: [3,0,3]})
-    // g.addNode('d', { scene: <JackyObject />, pos: [-3,0,-3]})
     g.addNode('a', { scene: <JackyObject />, pos: [0,0,30]})
     g.addNode('b', { scene: <JackyObject />, pos: [0,0,30]})
     g.addNode('c', { scene: <JackyObject />, pos: [0,0,30]})
     g.addNode('d', { scene: <JackyObject />, pos: [0,0,30]})
+    g.addNode('e', { scene: <JackyObject />, pos: [0,0,30]})
+    g.addNode('f', { scene: <JackyObject />, pos: [0,0,30]})
+    g.addNode('g', { scene: <JackyObject />, pos: [0,0,30]})
 
     g.addLink('a', 'b')
     g.addLink('a', 'c')
     g.addLink('a', 'd')
+    g.addLink('a', 'e')
+    g.addLink('a', 'f')
+    g.addLink('a', 'g')
     g.addLink('b', 'd')
+    g.addLink('f', 'e')
+    g.addLink('f', 'd')
 
     const onClick = (clickedNode) => {
         if(clickedNode != activeNode){
@@ -32,11 +37,9 @@ const Main = ({mouse}) => {
                 //set each node to the original position and center the clicked node
                 node.id == clickedNode ? positions.current.get(node.id).current = [0,0,0] : positions.current.get(node.id).current = node.data.pos
             })
-            //change the positions of the linked nodes to be around the clicked node
+            //calculates and moves the nodes to the position around the clicked node (maybe in useframe for the linked nodes to rotate around the clicked node)
             let linkedNodes = []
             g.forEachLinkedNode(clickedNode, (linkedNode) => {
-                //positions.current.get(linkedNode.id).current = [i,5,i]
-                //i++
                 linkedNodes.push(linkedNode)
                 //console.log("Connected node: ", linkedNode.id, linkedNode.data)
             })
