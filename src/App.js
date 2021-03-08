@@ -52,11 +52,10 @@ const App = () => {
       //camera={camera}
       onCreated={({ gl }) => gl.setClearColor('black')}>
         <Camera position={[posX,posY,20]}/>
-        <ambientLight />
-        <pointLight position={[150, 150, 150]} intensity={0.55} />
+        <rectAreaLight width={20} height={20} color={"#ffc9f9"} intensity={5} position={[0, 5, 20]} lookAt={[0, 0, 0]} />
         {/* <Jacky mouse={mouse}/> */}
         <Main mouse={mouse} />
-        <Graph />
+        {/* <Graph /> */}
       </Canvas>
     </div>
   );

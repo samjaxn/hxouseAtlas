@@ -2,6 +2,7 @@ import React, { Suspense, useRef, useState } from 'react'
 import NodeObject from './NodeObject'
 import JackyObject from './JackyObject'
 import TextObject from './TextObject'
+import ShapeObject from './ShapeObject'
 
 const Main = ({mouse}) => {
     let x = mouse.current[0]
@@ -15,24 +16,24 @@ const Main = ({mouse}) => {
     var g = createGraph();
 
     g.addNode('a', { scene: <JackyObject />, pos: [0,0,30]})
-    g.addNode('b', { scene: <TextObject children="TEST" />, pos: [0,0,30]})
-    g.addNode('c', { scene: <TextObject children="SOFTWARE DEVELOPER" />, pos: [0,0,30]})
-    g.addNode('d', { scene: <TextObject children="3D MOTION DESIGNER" />, pos: [0,0,30]})
-    g.addNode('e', { scene: <TextObject children="TEST 3" />, pos: [0,0,30]})
-    g.addNode('f', { scene: <TextObject children="TEST 4" />, pos: [0,0,30]})
-    g.addNode('g', { scene: <TextObject children="TEST 5" />, pos: [0,0,30]})
-    g.addNode('h', { scene: <TextObject children="TEST 6" />, pos: [0,0,30]})
+    g.addNode('b', { scene: <TextObject children="2020" />, pos: [0,0,30]})
+    g.addNode('c', { scene: <TextObject children="3D MOTION DESIGNER" />, pos: [0,0,30]})
+    g.addNode('d', { scene: <TextObject children="SOFTWARE DEVELOPER" />, pos: [0,0,30]})
+    g.addNode('e', { scene: <ShapeObject />, pos: [0,0,30]})
+    g.addNode('f', { scene: <ShapeObject />, pos: [0,0,30]})
+    g.addNode('g', { scene: <ShapeObject />, pos: [0,0,30]})
+    g.addNode('h', { scene: <ShapeObject />, pos: [0,0,30]})
 
-    g.addLink('a', 'b')
     g.addLink('a', 'c')
     g.addLink('a', 'd')
-    g.addLink('a', 'e')
-    g.addLink('a', 'f')
-    g.addLink('a', 'g')
-    g.addLink('b', 'd')
-    g.addLink('f', 'e')
-    g.addLink('f', 'd')
-    g.addLink('f', 'h')
+    g.addLink('c', 'e')
+    g.addLink('c', 'f')
+    g.addLink('c', 'g')
+    g.addLink('c', 'h')
+    g.addLink('b', 'e')
+    g.addLink('b', 'f')
+    g.addLink('b', 'g')
+    g.addLink('b', 'h')
 
     const onClick = (clickedNode) => {
         if(clickedNode != activeNode){
@@ -75,7 +76,8 @@ const Main = ({mouse}) => {
 
     const calcZ = (angle) => {
         angle = toRadians(angle)
-        return (4 * Math.random() - 2)
+        // return (2 * Math.random() - 2)
+        return -1
     }
 
     const toRadians = (angle) => {
@@ -88,7 +90,7 @@ const Main = ({mouse}) => {
         console.log(positions)
     }
 
-    const testReturn = () => {
+    const returnObjects = () => {
         let value = []
         
         //adds all the nodes to the array that gets rendered
@@ -108,7 +110,7 @@ const Main = ({mouse}) => {
         <Suspense fallback={null}>
             {/* <NodeObject mouse={mouse} scene={<JackyObject />} position1={[0,5,1]} position2={[0,0,0]} />
             <NodeObject mouse={mouse} scene={<JackyObject />} position1={[0,0,0]} position2={[0,0,15]} /> */}
-            {testReturn()}
+            {returnObjects()}
             {/* <NodeObject key={'a'} value={'a'} onClick={onClick} getPosRef={getPosRef} pos={[0,0,0]} scene={<TextObject position={[0,0,0]} children="SOFTWARE DEVELOPER" />} mouse={mouse} testing={false}/> */}
             {/* <NodeObject key={'a'} value={'a'} onClick={onClick} getPosRef={getPosRef} pos={[0,0,0]} scene={<JackyObject />} mouse={mouse} testing={false}/> */}
         </Suspense>

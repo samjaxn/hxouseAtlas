@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 const TextObject = ({children, vAlign = 'center', hAlign = 'center', size = 1, color = '#FFFFFF', ...props }) => {
     const font = useLoader(THREE.FontLoader, '/Oswald_Regular.json')
     const config = useMemo(
-      () => ({ font, size: 7, height: 5, curveSegments: 32, bevelEnabled: true, bevelThickness: 1, bevelSize: 0.5, bevelOffset: 0, bevelSegments: 5 }),
+      () => ({ font, size: 7, height: 3, curveSegments: 32, bevelEnabled: true, bevelThickness: 1, bevelSize: 0.5, bevelOffset: 0, bevelSegments: 5 }),
       [font]
     )
 
@@ -26,7 +26,10 @@ const TextObject = ({children, vAlign = 'center', hAlign = 'center', size = 1, c
         <group {...props} scale={[0.1 * size, 0.1 * size, 0.1]}>
           <mesh ref={mesh}>
             <textBufferGeometry args={[children, config]} />
-            <meshNormalMaterial />
+            <meshStandardMaterial
+              attach="material"
+              color="white"
+            />
           </mesh>
         </group>
       </scene>
