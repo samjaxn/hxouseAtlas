@@ -5,7 +5,7 @@ import { useLoader, useFrame, useThree } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import lerp from 'lerp'
 
-const NodeObject = ({value, mouse, scene, pos=[0,0,0], onClick, getPosRef, testing=false, ...props}) => {
+const NodeObject = ({value, data, mouse, scene, pos=[0,0,0], onClick, getPosRef, testing=false, ...props}) => {
     const object = useRef()
     const position = useRef(pos)
 
@@ -13,11 +13,9 @@ const NodeObject = ({value, mouse, scene, pos=[0,0,0], onClick, getPosRef, testi
     const aspectX = size.width/ viewport.width
     const aspectY = size.height/ viewport.height
 
-    const [hovered, setHover] = useState(false)
-    const [click, setActive] = useState(false)
-
     const { color, ...spring } = useSpring({
-        scale: hovered ? [1.2, 1.2, 1.2] : [1, 1, 1],
+        //scale: hovered ? [1.2, 1.2, 1.2] : [1, 1, 1],
+        //color: hovered ? 'white' : 'black',
         config: { mass: 10, tension: 1000, friction: 300, precision: 0.00001 }
     })
 
@@ -44,9 +42,6 @@ const NodeObject = ({value, mouse, scene, pos=[0,0,0], onClick, getPosRef, testi
         dispose={null}
         {...spring}
         {...props}
-        onPointerOver={e => setHover(true)}
-        onPointerOut={e => setHover(false)}
-        // onClick={e => setActive(!click)}>
         onClick={e => {
             onClick(value)
         }}>

@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import * as THREE from 'three'
+import { useSpring, animated } from 'react-spring/three' 
 import { useLoader, useUpdate } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
-const TextObject = ({children, vAlign = 'center', hAlign = 'center', size = 1, color = '#FFFFFF', ...props }) => {
+const TextObject = ({children, vAlign = 'center', hAlign = 'center', size = 1, ...props }) => {
     const font = useLoader(THREE.FontLoader, '/Oswald_Regular.json')
     const config = useMemo(
       () => ({ font, size: 7, height: 3, curveSegments: 32, bevelEnabled: true, bevelThickness: 1, bevelSize: 0.5, bevelOffset: 0, bevelSegments: 5 }),
@@ -21,16 +22,26 @@ const TextObject = ({children, vAlign = 'center', hAlign = 'center', size = 1, c
       [children]
     )
 
+    const [hovered, setHover] = useState(false)
+
+    const { color, pos, ...configs} = useSpring({
+      color: hovered ? 'white' : 'silver'
+    })
+
     return (
       <scene name="Root Scene">
         <group {...props} scale={[0.1 * size, 0.1 * size, 0.1]}>
-          <mesh ref={mesh}>
+          <animated.mesh
+          ref={mesh}
+          onPointerOver={e => setHover(true)}
+          onPointerOut={e => setHover(false)}
+          {...configs}>
             <textBufferGeometry args={[children, config]} />
-            <meshStandardMaterial
+            <animated.meshStandardMaterial
               attach="material"
-              color="white"
+              color={color}
             />
-          </mesh>
+          </animated.mesh>
         </group>
       </scene>
     )

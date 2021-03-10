@@ -3,6 +3,7 @@ import NodeObject from './NodeObject'
 import JackyObject from './JackyObject'
 import TextObject from './TextObject'
 import ShapeObject from './ShapeObject'
+import { CompressedPixelFormat } from 'three'
 
 const Main = ({mouse}) => {
     let x = mouse.current[0]
@@ -15,25 +16,25 @@ const Main = ({mouse}) => {
     var createGraph = require('ngraph.graph');
     var g = createGraph();
 
-    g.addNode('a', { scene: <JackyObject />, pos: [0,0,30]})
-    g.addNode('b', { scene: <TextObject children="2020" />, pos: [0,0,30]})
-    g.addNode('c', { scene: <TextObject children="3D MOTION DESIGNER" />, pos: [0,0,30]})
-    g.addNode('d', { scene: <TextObject children="SOFTWARE DEVELOPER" />, pos: [0,0,30]})
-    g.addNode('e', { scene: <ShapeObject />, pos: [0,0,30]})
-    g.addNode('f', { scene: <ShapeObject />, pos: [0,0,30]})
-    g.addNode('g', { scene: <ShapeObject />, pos: [0,0,30]})
-    g.addNode('h', { scene: <ShapeObject />, pos: [0,0,30]})
+    g.addNode('jacky', { scene: <JackyObject />, pos: [0,0,30]})
+    g.addNode('2020', { scene: <TextObject children="2020" />, pos: [0,0,30]})
+    g.addNode('c4d', { scene: <TextObject children="3D MOTION DESIGNER" />, pos: [0,0,30]})
+    g.addNode('dev', { scene: <TextObject children="SOFTWARE DEVELOPER" />, pos: [0,0,30]})
+    g.addNode('v1', { scene: <ShapeObject />, pos: [0,0,30]})
+    g.addNode('v2', { scene: <ShapeObject />, pos: [0,0,30]})
+    g.addNode('v3', { scene: <ShapeObject />, pos: [0,0,30]})
+    g.addNode('v4', { scene: <ShapeObject />, pos: [0,0,30]})
 
-    g.addLink('a', 'c')
-    g.addLink('a', 'd')
-    g.addLink('c', 'e')
-    g.addLink('c', 'f')
-    g.addLink('c', 'g')
-    g.addLink('c', 'h')
-    g.addLink('b', 'e')
-    g.addLink('b', 'f')
-    g.addLink('b', 'g')
-    g.addLink('b', 'h')
+    g.addLink('jacky', 'c4d')
+    g.addLink('jacky', 'dev')
+    g.addLink('c4d', 'v1')
+    g.addLink('c4d', 'v2')
+    g.addLink('c4d', 'v3')
+    g.addLink('c4d', 'v4')
+    g.addLink('2020', 'v1')
+    g.addLink('2020', 'v2')
+    g.addLink('2020', 'v3')
+    g.addLink('2020', 'v4')
 
     const onClick = (clickedNode) => {
         if(clickedNode != activeNode){
@@ -50,6 +51,9 @@ const Main = ({mouse}) => {
             linkedNodesPos(linkedNodes)
             setActiveNode(clickedNode)
         }
+        else{
+            console.log("clicked active node")
+        }
     }
 
     const linkedNodesPos = (linkedNodes) => {
@@ -57,7 +61,6 @@ const Main = ({mouse}) => {
         let angleIncrement = 360/length
         let angle = 0
 
-        console.log(angleIncrement)
         linkedNodes.forEach((node, index) => {
             positions.current.get(node.id).current = [calcX(angle), calcY(angle), calcZ(angle)]
             angle += angleIncrement
@@ -87,7 +90,6 @@ const Main = ({mouse}) => {
     //adds the posRef to a list with the key of the node it is the posRef for
     const getPosRef = (node, posRef) => {
         positions.current.set(node, posRef)
-        console.log(positions)
     }
 
     const returnObjects = () => {
@@ -95,11 +97,11 @@ const Main = ({mouse}) => {
         
         //adds all the nodes to the array that gets rendered
         g.forEachNode((node) => {
-            if(node.id == 'a'){
-                value.push( <NodeObject key={node.id} value={node.id} onClick={onClick} getPosRef={getPosRef} pos={[0,0,0]} scene={node.data.scene} mouse={mouse} testing={node.data.testing}/> )
+            if(node.id == 'jacky'){
+                value.push( <NodeObject key={node.id} value={node.id} data={node.data} onClick={onClick} getPosRef={getPosRef} pos={[0,0,0]} scene={node.data.scene} mouse={mouse} testing={node.data.testing}/> )
             }
             else{
-                value.push( <NodeObject key={node.id} value={node.id} onClick={onClick} getPosRef={getPosRef} pos={node.data.pos} scene={node.data.scene} mouse={mouse} testing={node.data.testing}/> )
+                value.push( <NodeObject key={node.id} value={node.id} data={node.data} onClick={onClick} getPosRef={getPosRef} pos={node.data.pos} scene={node.data.scene} mouse={mouse} testing={node.data.testing}/> )
             }
         })
 
