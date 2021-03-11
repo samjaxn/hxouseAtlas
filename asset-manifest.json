@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/hxouseAtlas/static/css/main.4d566bc5.chunk.css",
+    "main.js": "/hxouseAtlas/static/js/main.50b9675d.chunk.js",
+    "main.js.map": "/hxouseAtlas/static/js/main.50b9675d.chunk.js.map",
+    "runtime-main.js": "/hxouseAtlas/static/js/runtime-main.38192c75.js",
+    "runtime-main.js.map": "/hxouseAtlas/static/js/runtime-main.38192c75.js.map",
+    "static/js/2.1d63198c.chunk.js": "/hxouseAtlas/static/js/2.1d63198c.chunk.js",
+    "static/js/2.1d63198c.chunk.js.map": "/hxouseAtlas/static/js/2.1d63198c.chunk.js.map",
+    "static/js/3.0d12456f.chunk.js": "/hxouseAtlas/static/js/3.0d12456f.chunk.js",
+    "static/js/3.0d12456f.chunk.js.map": "/hxouseAtlas/static/js/3.0d12456f.chunk.js.map",
+    "index.html": "/hxouseAtlas/index.html",
+    "static/css/main.4d566bc5.chunk.css.map": "/hxouseAtlas/static/css/main.4d566bc5.chunk.css.map",
+    "static/js/2.1d63198c.chunk.js.LICENSE.txt": "/hxouseAtlas/static/js/2.1d63198c.chunk.js.LICENSE.txt",
+    "static/media/andras.a8cbecf8.png": "/hxouseAtlas/static/media/andras.a8cbecf8.png",
+    "static/media/hongShing.73251cee.png": "/hxouseAtlas/static/media/hongShing.73251cee.png",
+    "static/media/shoeLaundry.e81bdafa.png": "/hxouseAtlas/static/media/shoeLaundry.e81bdafa.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.38192c75.js",
+    "static/js/2.1d63198c.chunk.js",
+    "static/css/main.4d566bc5.chunk.css",
+    "static/js/main.50b9675d.chunk.js"
+  ]
+}
