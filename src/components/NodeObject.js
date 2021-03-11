@@ -5,9 +5,10 @@ import { useLoader, useFrame, useThree } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import lerp from 'lerp'
 
-const NodeObject = ({value, data, mouse, scene, pos=[0,0,0], onClick, getPosRef, testing=false, ...props}) => {
+const NodeObject = ({value, data, mouse, scene, pos=[0,0,0], scaled=[1,1,1], onClick, getPosRef, getScaleRef, testing=false, ...props}) => {
     const object = useRef()
     const position = useRef(pos)
+    const scale = useRef(scaled)
 
     const { size, viewport, aspect } = useThree()
     const aspectX = size.width/ viewport.width
@@ -21,6 +22,7 @@ const NodeObject = ({value, data, mouse, scene, pos=[0,0,0], onClick, getPosRef,
 
     useEffect(() => {
         getPosRef(value, position)
+        getScaleRef(value, scale)
     }, [])
 
     useFrame(() => {
@@ -28,6 +30,10 @@ const NodeObject = ({value, data, mouse, scene, pos=[0,0,0], onClick, getPosRef,
             (Math.abs(object.current.position.x - position.current[0]) > 0.01) ? object.current.position.x = lerp(object.current.position.x, position.current[0], 0.1) : object.current.position.x = position.current[0];
             (Math.abs(object.current.position.y - position.current[1]) > 0.01) ? object.current.position.y = lerp(object.current.position.y, position.current[1], 0.1) : object.current.position.y = position.current[1];
             (Math.abs(object.current.position.z - position.current[2]) > 0.01) ? object.current.position.z = lerp(object.current.position.z, position.current[2], 0.1) : object.current.position.z = position.current[2];
+
+            (Math.abs(object.current.scale.x - scale.current[0]) > 0.01) ? object.current.scale.x = lerp(object.current.scale.x, scale.current[0], 0.1) : object.current.scale.x = scale.current[0];
+            (Math.abs(object.current.scale.y - scale.current[1]) > 0.01) ? object.current.scale.y = lerp(object.current.scale.y, scale.current[1], 0.1) : object.current.scale.y = scale.current[1];
+            (Math.abs(object.current.scale.z - scale.current[2]) > 0.01) ? object.current.scale.z = lerp(object.current.scale.z, scale.current[2], 0.1) : object.current.scale.z = scale.current[2];
 
             if(testing){
                 //console.log(object.current.position.y)

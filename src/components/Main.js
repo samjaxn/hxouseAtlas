@@ -1,14 +1,16 @@
 import React, { Suspense, useRef, useState } from 'react'
+import { Graph, GetImageUrl } from './Graph'
 import NodeObject from './NodeObject'
 import JackyObject from './JackyObject'
 import TextObject from './TextObject'
 import ShapeObject from './ShapeObject'
-import { CompressedPixelFormat } from 'three'
+import ImageObject from './ImageObject'
 
 const Main = ({mouse}) => {
     let x = mouse.current[0]
 
     let positions = useRef(new Map())
+    let scaleVals = useRef(new Map())
 
     //need this for react to re render the components after a click is made
     let [activeNode, setActiveNode] = useState()
@@ -17,13 +19,17 @@ const Main = ({mouse}) => {
     var g = createGraph();
 
     g.addNode('jacky', { scene: <JackyObject />, pos: [0,0,30]})
+    g.addNode('2019', { scene: <TextObject children="2019" />, pos: [0,0,30]})
     g.addNode('2020', { scene: <TextObject children="2020" />, pos: [0,0,30]})
+    g.addNode('2021', { scene: <TextObject children="2021" />, pos: [0,0,30]})
     g.addNode('c4d', { scene: <TextObject children="3D MOTION DESIGNER" />, pos: [0,0,30]})
     g.addNode('dev', { scene: <TextObject children="SOFTWARE DEVELOPER" />, pos: [0,0,30]})
-    g.addNode('v1', { scene: <ShapeObject />, pos: [0,0,30]})
-    g.addNode('v2', { scene: <ShapeObject />, pos: [0,0,30]})
-    g.addNode('v3', { scene: <ShapeObject />, pos: [0,0,30]})
-    g.addNode('v4', { scene: <ShapeObject />, pos: [0,0,30]})
+    g.addNode('v1', { scene: <ShapeObject />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
+    g.addNode('v2', { scene: <ShapeObject />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
+    g.addNode('v3', { scene: <ImageObject url={GetImageUrl('shoeLaundry')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
+    g.addNode('v4', { scene: <ImageObject url={GetImageUrl('hongShing')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
+    g.addNode('v5', { scene: <ImageObject url={GetImageUrl('andras')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
+    g.addNode('v6', { scene: <ImageObject url={'https://images.unsplash.com/photo-1517462964-21fdcec3f25b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80'} scale={[1,1,1]} position={[0,0,0]} />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
 
     g.addLink('jacky', 'c4d')
     g.addLink('jacky', 'dev')
@@ -31,28 +37,43 @@ const Main = ({mouse}) => {
     g.addLink('c4d', 'v2')
     g.addLink('c4d', 'v3')
     g.addLink('c4d', 'v4')
+    g.addLink('c4d', 'v5')
+    g.addLink('c4d', 'v6')
     g.addLink('2020', 'v1')
     g.addLink('2020', 'v2')
     g.addLink('2020', 'v3')
     g.addLink('2020', 'v4')
+    g.addLink('2020', 'v5')
+    g.addLink('2020', 'v6')
 
     const onClick = (clickedNode) => {
+        let node = g.getNode(clickedNode)
+
+        //if the clicked node is not the current center node
         if(clickedNode != activeNode){
-            g.forEachNode((node) => {
-                //set each node to the original position and center the clicked node
-                node.id == clickedNode ? positions.current.get(node.id).current = [0,0,0] : positions.current.get(node.id).current = node.data.pos
-            })
-            //calculates and moves the nodes to the position around the clicked node (maybe in useframe for the linked nodes to rotate around the clicked node)
-            let linkedNodes = []
-            g.forEachLinkedNode(clickedNode, (linkedNode) => {
-                linkedNodes.push(linkedNode)
-                //console.log("Connected node: ", linkedNode.id, linkedNode.data)
-            })
-            linkedNodesPos(linkedNodes)
-            setActiveNode(clickedNode)
+            //if the node can be centerable
+            if(node.data.center !== false){
+                g.forEachNode((node) => {
+                    //set each node to the original position and center the clicked node
+                    node.id == clickedNode ? positions.current.get(node.id).current = [0,0,0] : positions.current.get(node.id).current = node.data.pos;
+                    (node.id == clickedNode && node.data.scaledCenter) ? scaleVals.current.get(node.id).current = [2,2,2] : scaleVals.current.get(node.id).current = [1,1,1];
+                })
+                //calculates and moves the nodes to the position around the clicked node (maybe in useframe for the linked nodes to rotate around the clicked node)
+                let linkedNodes = []
+                g.forEachLinkedNode(clickedNode, (linkedNode) => {
+                    linkedNodes.push(linkedNode)
+                    //console.log("Connected node: ", linkedNode.id, linkedNode.data)
+                })
+                linkedNodesPos(linkedNodes)
+                setActiveNode(clickedNode)
+            }
         }
         else{
-            console.log("clicked active node")
+            let urlLink = node.data.link
+
+            if(urlLink){
+                window.open(urlLink, "_blank")
+            }
         }
     }
 
@@ -69,12 +90,12 @@ const Main = ({mouse}) => {
 
     const calcX = (angle) => {
         angle = toRadians(angle)
-        return (5 * Math.sin(angle))
+        return (10 * Math.sin(angle))
     }
 
     const calcY = (angle) => {
         angle = toRadians(angle)
-        return (5 * Math.cos(angle))
+        return (6 * Math.cos(angle))
     }
 
     const calcZ = (angle) => {
@@ -92,16 +113,20 @@ const Main = ({mouse}) => {
         positions.current.set(node, posRef)
     }
 
+    const getScaleRef = (node, scaleVal) => {
+        scaleVals.current.set(node, scaleVal)
+    }
+
     const returnObjects = () => {
         let value = []
         
         //adds all the nodes to the array that gets rendered
         g.forEachNode((node) => {
             if(node.id == 'jacky'){
-                value.push( <NodeObject key={node.id} value={node.id} data={node.data} onClick={onClick} getPosRef={getPosRef} pos={[0,0,0]} scene={node.data.scene} mouse={mouse} testing={node.data.testing}/> )
+                value.push( <NodeObject key={node.id} value={node.id} data={node.data} onClick={onClick} getPosRef={getPosRef} getScaleRef={getScaleRef} pos={[0,0,0]} scene={node.data.scene} mouse={mouse} testing={node.data.testing}/> )
             }
             else{
-                value.push( <NodeObject key={node.id} value={node.id} data={node.data} onClick={onClick} getPosRef={getPosRef} pos={node.data.pos} scene={node.data.scene} mouse={mouse} testing={node.data.testing}/> )
+                value.push( <NodeObject key={node.id} value={node.id} data={node.data} onClick={onClick} getPosRef={getPosRef} getScaleRef={getScaleRef} pos={node.data.pos} scene={node.data.scene} mouse={mouse} testing={node.data.testing}/> )
             }
         })
 

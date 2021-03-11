@@ -24,26 +24,33 @@ const TextObject = ({children, vAlign = 'center', hAlign = 'center', size = 1, .
 
     const [hovered, setHover] = useState(false)
 
-    const { color, pos, ...configs} = useSpring({
-      color: hovered ? 'white' : 'silver'
+    const { color, scale, pos, ...configs} = useSpring({
+      color: hovered ? 'white' : 'silver',
+      scale: hovered ? [1.1, 1.1, 1.1] : [1, 1, 1]
     })
 
     return (
-      <scene name="Root Scene">
-        <group {...props} scale={[0.1 * size, 0.1 * size, 0.1]}>
-          <animated.mesh
-          ref={mesh}
-          onPointerOver={e => setHover(true)}
-          onPointerOut={e => setHover(false)}
-          {...configs}>
+      <animated.scene name="Root Scene" scale={scale}>
+        <group {...props} scale={[0.1 * size, 0.1 * size, 0.1]}
+        onPointerOver={e => setHover(true)}
+        onPointerOut={e => setHover(false)}
+        {...configs}>
+          <mesh ref={mesh}>
             <textBufferGeometry args={[children, config]} />
             <animated.meshStandardMaterial
               attach="material"
               color={color}
             />
-          </animated.mesh>
+          </mesh>
+          {/* <mesh>
+            <boxBufferGeometry attach="geometry" args={[85, 15, 3]} />
+            <animated.meshStandardMaterial
+              attach="material"
+              color={color}
+            />
+          </mesh> */}
         </group>
-      </scene>
+      </animated.scene>
     )
 }
 

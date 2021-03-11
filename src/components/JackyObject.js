@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLoader } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { useSpring, animated } from 'react-spring/three' 
 
 const JackyObject = () => {
     const { nodes, materials, animations } = useLoader(GLTFLoader, '/jacky.glb')
 
+    const [hovered, setHover] = useState(false)
+
+    const { color, scale, pos, ...configs} = useSpring({
+      color: hovered ? 'white' : 'silver',
+      scale: hovered ? [1.1, 1.1, 1.1] : [1, 1, 1]
+    })
+
     return (
-      <scene name="Root Scene">
-        <group name="RootNode">
+      <animated.scene name="Root Scene" scale={scale}>
+        <group name="RootNode"
+        onPointerOver={e => setHover(true)}
+        onPointerOut={e => setHover(false)}
+        >
           <primitive object={nodes.CINEMA_4D_Editor} />
           <group name="JACKY">
             <mesh
@@ -36,7 +47,7 @@ const JackyObject = () => {
             </mesh>
           </group>
         </group>
-      </scene>
+      </animated.scene>
     )
 }
 
