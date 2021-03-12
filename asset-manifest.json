@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/hxouseAtlas/static/css/main.4d566bc5.chunk.css",
-    "main.js": "/hxouseAtlas/static/js/main.f3452fc1.chunk.js",
-    "main.js.map": "/hxouseAtlas/static/js/main.f3452fc1.chunk.js.map",
+    "main.js": "/hxouseAtlas/static/js/main.b3675bd1.chunk.js",
+    "main.js.map": "/hxouseAtlas/static/js/main.b3675bd1.chunk.js.map",
     "runtime-main.js": "/hxouseAtlas/static/js/runtime-main.1a99bf5f.js",
     "runtime-main.js.map": "/hxouseAtlas/static/js/runtime-main.1a99bf5f.js.map",
     "static/js/2.3d4c98f3.chunk.js": "/hxouseAtlas/static/js/2.3d4c98f3.chunk.js",
@@ -26,6 +26,6 @@
     "static/js/runtime-main.1a99bf5f.js",
     "static/js/2.3d4c98f3.chunk.js",
     "static/css/main.4d566bc5.chunk.css",
-    "static/js/main.f3452fc1.chunk.js"
+    "static/js/main.b3675bd1.chunk.js"
   ]
 }
