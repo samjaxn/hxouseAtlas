@@ -4,10 +4,11 @@ import { useSpring, animated } from 'react-spring/three'
 import { useLoader, useFrame, useThree } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import lerp from 'lerp'
+import jackyGLB from '../content/jacky.glb'
 
 export default function Model({mouse, ...props}) {
   const jacky = useRef()
-  const { nodes, materials, animations } = useLoader(GLTFLoader, '/jacky.glb')
+  const { nodes, materials, animations } = useLoader(GLTFLoader, jackyGLB)
 
   const { size, viewport, aspect } = useThree()
   const aspectX = size.width/ viewport.width

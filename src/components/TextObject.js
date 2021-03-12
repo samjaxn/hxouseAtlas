@@ -3,9 +3,10 @@ import * as THREE from 'three'
 import { useSpring, animated } from 'react-spring/three' 
 import { useLoader, useUpdate } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import fontJSON from '../javascript/fontJSON'
 
 const TextObject = ({children, vAlign = 'center', hAlign = 'center', size = 1, ...props }) => {
-    const font = useLoader(THREE.FontLoader, '/Oswald_Regular.json')
+    const font = useLoader(THREE.FontLoader, 'Oswald_Regular.json')
     const config = useMemo(
       () => ({ font, size: 7, height: 3, curveSegments: 32, bevelEnabled: true, bevelThickness: 1, bevelSize: 0.5, bevelOffset: 0, bevelSegments: 5 }),
       [font]

@@ -59,7 +59,9 @@ const App = () => {
         <Camera position={[posX,posY,20]}/>
         <rectAreaLight width={20} height={20} color={"#ffffff"} intensity={5} position={[0, 5, 20]} lookAt={[0, 0, 0]} />
         {/* <Jacky mouse={mouse}/> */}
-        <Main mouse={mouse} />
+        <Suspense fallback={null}>
+          <Main mouse={mouse} />
+        </Suspense>
         {/* <Graph /> */}
       </Canvas>
     </div>

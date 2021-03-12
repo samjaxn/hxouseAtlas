@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useLoader } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { useSpring, animated } from 'react-spring/three' 
+import { useSpring, animated } from 'react-spring/three'
+import jackyGLB from '../content/jacky.glb'
 
 const JackyObject = () => {
-    const { nodes, materials, animations } = useLoader(GLTFLoader, '/jacky.glb')
+    const { nodes, materials, animations } = useLoader(GLTFLoader, jackyGLB)
 
     const [hovered, setHover] = useState(false)
 
