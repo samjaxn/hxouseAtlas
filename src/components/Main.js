@@ -30,8 +30,9 @@ const Main = ({mouse}) => {
     g.addNode('v4', { scene: <ImageObject url={GetImageUrl('hongShing')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('v5', { scene: <ImageObject url={GetImageUrl('andras')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('blueJordan', { scene: <ImageObject url={GetImageUrl('jordanBlue2')} />, pos: [0,0,30], scaledCenter: true, link: "https://vimeo.com/464076439"})
-    g.addNode('blueJordan2', { scene: <ImageObject url={GetImageUrl('jordanBlue1')} />, pos: [0,0,30],  pos2: [10, 2, -1], center: false})
-    g.addNode('blueJordan3', { scene: <ImageObject url={GetImageUrl('jordanBlue3')} />, pos: [0,0,30],  pos2: [10, -2, -1], center: false})
+    g.addNode('blueJordan2', { scene: <ImageObject url={GetImageUrl('jordanBlue1')} hoverable={false} />, pos: [0,0,30],  pos2: [10, 2, -1], center: false})
+    g.addNode('blueJordan3', { scene: <ImageObject url={GetImageUrl('jordanBlue3')} hoverable={false} />, pos: [0,0,30],  pos2: [10, -2, -1], center: false})
+    g.addNode('blueJordanText', { scene: <TextObject children={"testing the text that will b \n blah blah"} scaleable={false} flatText={true}/>, pos: [0,0,30], pos2: [-10, 0, 0], center: false})
 
     g.addLink('jacky', 'c4d')
     g.addLink('jacky', 'dev')
@@ -49,6 +50,7 @@ const Main = ({mouse}) => {
     g.addLink('2020', 'blueJordan')
     g.addLink('blueJordan', 'blueJordan2')
     g.addLink('blueJordan', 'blueJordan3')
+    g.addLink('blueJordan', 'blueJordanText')
 
     const onClick = (clickedNode) => {
         let node = g.getNode(clickedNode)

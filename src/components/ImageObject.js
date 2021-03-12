@@ -1,11 +1,11 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import * as THREE from 'three'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import { useSpring, animated, config } from 'react-spring/three' 
 import { useLoader, useUpdate } from 'react-three-fiber'
 import { HoverImageShader } from '../resources/index'
 
-const ImageObject = ({ url, scaled, ...props }) => {
+const ImageObject = ({ url, scaled, hoverable = true, ...props }) => {
     const [hovered, setHover] = useState(false)
 
     const [texture] = useMemo(() => {
@@ -18,6 +18,10 @@ const ImageObject = ({ url, scaled, ...props }) => {
         scale: hovered ? [1.2, 1.2, 1.2] : [1, 1, 1],
         // config: config.molasses
     })
+
+    useEffect(() => {
+        document.body.style.cursor = (hovered && hoverable) ? 'pointer' : 'auto'
+      }, [hovered])
 
     return (
         <animated.scene scale={scale}>
