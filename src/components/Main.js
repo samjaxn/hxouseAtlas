@@ -29,7 +29,9 @@ const Main = ({mouse}) => {
     g.addNode('v3', { scene: <ImageObject url={GetImageUrl('shoeLaundry')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('v4', { scene: <ImageObject url={GetImageUrl('hongShing')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('v5', { scene: <ImageObject url={GetImageUrl('andras')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
-    g.addNode('v6', { scene: <ImageObject url={'https://images.unsplash.com/photo-1517462964-21fdcec3f25b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80'} scale={[1,1,1]} position={[0,0,0]} />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
+    g.addNode('blueJordan', { scene: <ImageObject url={GetImageUrl('jordanBlue2')} />, pos: [0,0,30], scaledCenter: true, link: "https://vimeo.com/464076439"})
+    g.addNode('blueJordan2', { scene: <ImageObject url={GetImageUrl('jordanBlue1')} />, pos: [0,0,30],  pos2: [10, 2, -1], center: false})
+    g.addNode('blueJordan3', { scene: <ImageObject url={GetImageUrl('jordanBlue3')} />, pos: [0,0,30],  pos2: [10, -2, -1], center: false})
 
     g.addLink('jacky', 'c4d')
     g.addLink('jacky', 'dev')
@@ -38,13 +40,15 @@ const Main = ({mouse}) => {
     g.addLink('c4d', 'v3')
     g.addLink('c4d', 'v4')
     g.addLink('c4d', 'v5')
-    g.addLink('c4d', 'v6')
+    g.addLink('c4d', 'blueJordan')
     g.addLink('2020', 'v1')
     g.addLink('2020', 'v2')
     g.addLink('2020', 'v3')
     g.addLink('2020', 'v4')
     g.addLink('2020', 'v5')
-    g.addLink('2020', 'v6')
+    g.addLink('2020', 'blueJordan')
+    g.addLink('blueJordan', 'blueJordan2')
+    g.addLink('blueJordan', 'blueJordan3')
 
     const onClick = (clickedNode) => {
         let node = g.getNode(clickedNode)
@@ -60,11 +64,17 @@ const Main = ({mouse}) => {
                 })
                 //calculates and moves the nodes to the position around the clicked node (maybe in useframe for the linked nodes to rotate around the clicked node)
                 let linkedNodes = []
+                let customPosNodes = []
                 g.forEachLinkedNode(clickedNode, (linkedNode) => {
-                    linkedNodes.push(linkedNode)
+                    if(!linkedNode.data.pos2){
+                        linkedNodes.push(linkedNode)
+                    }
+                    else{
+                        customPosNodes.push(linkedNode)
+                    }
                     //console.log("Connected node: ", linkedNode.id, linkedNode.data)
                 })
-                linkedNodesPos(linkedNodes)
+                linkedNodesPos(linkedNodes, customPosNodes)
                 setActiveNode(clickedNode)
             }
         }
@@ -77,7 +87,7 @@ const Main = ({mouse}) => {
         }
     }
 
-    const linkedNodesPos = (linkedNodes) => {
+    const linkedNodesPos = (linkedNodes, customPosNodes) => {
         let length = linkedNodes.length
         let angleIncrement = 360/length
         let angle = 0
@@ -85,6 +95,10 @@ const Main = ({mouse}) => {
         linkedNodes.forEach((node, index) => {
             positions.current.get(node.id).current = [calcX(angle), calcY(angle), calcZ(angle)]
             angle += angleIncrement
+        })
+
+        customPosNodes.forEach((node, index) => {
+            positions.current.get(node.id).current = node.data.pos2
         })
     }
 
