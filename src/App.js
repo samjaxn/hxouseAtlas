@@ -18,13 +18,18 @@ import lerp from 'lerp';
 const Camera = (props) => {
   const ref = useRef();
   const { setDefaultCamera } = useThree();
+
   useEffect(() => {
     setDefaultCamera(ref.current)
   }, []);
+
   useFrame(() => {
-    ref.current.lookAt(new THREE.Vector3(0,0,0))
+    if(ref.current){
+      ref.current.lookAt(new THREE.Vector3(0,0,0))
+    }
     //ref.current.updateMatrixWorld()
   });
+  
   return <perspectiveCamera ref={ref} {...props} />
 }
 
