@@ -41,16 +41,28 @@ const Main = ({mouse}) => {
     g.addNode('c4d', { scene: <TextObject children="3D MOTION DESIGNER" />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('dev', { scene: <TextObject children="SOFTWARE DEVELOPER" />, pos: [0,0,30], link: "http://www.jacky.design/"})
 
-    g.addNode('v1', { scene: <ShapeObject />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
-    g.addNode('v2', { scene: <ShapeObject />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
-    g.addNode('v3', { scene: <ImageObject url={GetImageUrl('shoeLaundry')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
-    g.addNode('v4', { scene: <ImageObject url={GetImageUrl('hongShing')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
-    g.addNode('v5', { scene: <ImageObject url={GetImageUrl('andras')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
+    //g.addNode('v1', { scene: <ShapeObject />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
+
+    // g.addNode('trickshotting', { scene: <ImageObject url={GetImageUrl('trickshotting')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/p/CJWq10igOXw/"})
+    g.addNode('trickshotting', { scene: <ImageObject url={GetImageUrl('trickshottingAzon')} />, pos: [0,0,30], link: "https://www.instagram.com/p/CJWq10igOXw/"})
+    g.addNode('trickshotting2', { scene: <ImageObject url={GetImageUrl('trickshottingAzon')} />, pos: [0,0,30],  pos2: [10, 2, -1], center: false})
+    g.addNode('trickshotting3', { scene: <ImageObject url={GetImageUrl('trickshottingClarify')} />, pos: [0,0,30],  pos2: [10, -2, -1], center: false})
+
+    g.addNode('shoeLaundry', { scene: <ImageObject url={GetImageUrl('shoeLaundry')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/p/CJWq10igOXw/"})
+    g.addNode('shoeLaundry2', { scene: <ImageObject url={GetImageUrl('shoeLaundry2')} hoverable={false} />, pos: [0,0,30],  pos2: [10, 2, -1], center: false})
+    g.addNode('shoeLaundry3', { scene: <ImageObject url={GetImageUrl('shoeLaundry3')} hoverable={false} />, pos: [0,0,30],  pos2: [10, -2, -1], center: false})
+
+    g.addNode('hongShing', { scene: <ImageObject url={GetImageUrl('hongShing')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/p/CLO_m43hFhT/"})
+    g.addNode('hongShing2', { scene: <ImageObject url={GetImageUrl('hongShing2')} hoverable={false} />, pos: [0,0,30],  pos2: [10, 4, -1], center: false})
+    g.addNode('hongShing3', { scene: <ImageObject url={GetImageUrl('hongShing3')} hoverable={false} />, pos: [0,0,30],  pos2: [10, 0, -1], center: false})
+    g.addNode('hongShing4', { scene: <ImageObject url={GetImageUrl('hongShing4')} hoverable={false} />, pos: [0,0,30],  pos2: [10, -4, -1], center: false})
 
     g.addNode('blueJordan', { scene: <ImageObject url={GetImageUrl('jordanBlue2')} />, pos: [0,0,30], scaledCenter: true, link: "https://vimeo.com/464076439"})
     g.addNode('blueJordan2', { scene: <ImageObject url={GetImageUrl('jordanBlue1')} hoverable={false} />, pos: [0,0,30],  pos2: [10, 2, -1], center: false})
     g.addNode('blueJordan3', { scene: <ImageObject url={GetImageUrl('jordanBlue3')} hoverable={false} />, pos: [0,0,30],  pos2: [10, -2, -1], center: false})
     g.addNode('blueJordanText', { scene: <TextObject children={GetText('jordanBlue')} scaleable={false} flatText={true}/>, pos: [0,0,30], pos2: [-10, 0, 0], center: false})
+    
+    g.addNode('andras', { scene: <ImageObject url={GetImageUrl('andras')} />, pos: [0,0,30], scaledCenter: true})
 
     g.addNode('ghost', { scene: <ImageObject url={GetImageUrl('ghost')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.ghostatelier.com/" })
 
@@ -61,12 +73,11 @@ const Main = ({mouse}) => {
     g.addLink('jacky', 'c4d')
     g.addLink('jacky', 'dev')
 
-    g.addLink('c4d', 'v1')
-    g.addLink('c4d', 'v2')
-    g.addLink('c4d', 'v3')
-    g.addLink('c4d', 'v4')
-    g.addLink('c4d', 'v5')
+    g.addLink('c4d', 'trickshotting')
     g.addLink('c4d', 'blueJordan')
+    g.addLink('c4d', 'shoeLaundry')
+    g.addLink('c4d', 'hongShing')
+    g.addLink('c4d', 'andras')
 
     g.addLink('dev', 'ghost')
     g.addLink('dev', 'trish')
@@ -98,21 +109,28 @@ const Main = ({mouse}) => {
     g.addLink('leftArrow', '2028')
     g.addLink('leftArrow', '2029')
     g.addLink('leftArrow', '2030')
+
+    g.addLink('2011 - 2012', 'trickshotting')
     
     g.addLink('2019', 'ghost')
 
-    g.addLink('2020', 'v1')
-    g.addLink('2020', 'v2')
-    g.addLink('2020', 'v3')
-    g.addLink('2020', 'v4')
-    g.addLink('2020', 'v5')
-    g.addLink('2020', 'blueJordan')    
+    g.addLink('2020', 'blueJordan')
+    g.addLink('2020', 'shoeLaundry')   
 
+    g.addLink('2021', 'hongShing')
+    g.addLink('2021', 'andras')
     g.addLink('2021', 'trish')
 
     g.addLink('blueJordan', 'blueJordan2')
     g.addLink('blueJordan', 'blueJordan3')
     g.addLink('blueJordan', 'blueJordanText')
+    
+    g.addLink('shoeLaundry', 'shoeLaundry2')
+    g.addLink('shoeLaundry', 'shoeLaundry3')
+
+    g.addLink('hongShing', 'hongShing2')
+    g.addLink('hongShing', 'hongShing3')
+    g.addLink('hongShing', 'hongShing4')
 
     g.addLink('trish', 'trish2')
     g.addLink('trish', 'trish3')
