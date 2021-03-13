@@ -40,6 +40,7 @@ const Main = ({mouse}) => {
     g.addNode('rightArrow', { scene: <TextObject children={">"} />, pos: [0,0,30], pos2: [2.5, 0, 0], center: false})
     g.addNode('leftArrow', { scene: <TextObject children={"<"} />, pos: [0,0,30], pos2: [-2.5, 0, 0], center: false})
 
+    g.addNode('timeline', { scene: <TextObject children="TIMELINE" />, pos: [0,0,30]})
     g.addNode('c4d', { scene: <TextObject children="3D MOTION DESIGNER" />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('dev', { scene: <TextObject children="SOFTWARE DEVELOPER" />, pos: [0,0,30], link: "http://www.jacky.design/"})
 
@@ -81,6 +82,7 @@ const Main = ({mouse}) => {
     g.addNode('trish3', { scene: <ImageObject url={GetImageUrl('trish3')} size={[5,4.5]} hoverable={false} />, pos: [0,0,30], pos2: [10, -2, -1], center: false })
     g.addNode('trishText', { scene: <FlatTextObject children={GetText('trish')} width={200}/>, pos: [0,0,30], pos2: [-11, 0, 0], center: false})
 
+    g.addLink('jacky', 'timeline')
     g.addLink('jacky', 'c4d')
     g.addLink('jacky', 'dev')
 
@@ -167,6 +169,10 @@ const Main = ({mouse}) => {
         if(clickedNode != activeNode){
             if(clickedNode == 'leftArrow' || clickedNode == 'rightArrow'){
                 clickedNode = getYearNode(activeNode, clickedNode)
+                node = g.getNode(clickedNode)
+            }
+            if(clickedNode == 'timeline'){
+                clickedNode = '2011 - 2012'
                 node = g.getNode(clickedNode)
             }
             //if the node can be centerable
