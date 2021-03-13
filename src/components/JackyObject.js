@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLoader } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useSpring, animated } from 'react-spring/three'
@@ -13,6 +13,10 @@ const JackyObject = () => {
       color: hovered ? 'white' : 'silver',
       scale: hovered ? [1.1, 1.1, 1.1] : [1, 1, 1]
     })
+
+    useEffect(() => {
+      document.body.style.cursor = hovered ? 'pointer' : 'auto'
+    }, [hovered])
 
     return (
       <animated.scene name="Root Scene" scale={scale}>

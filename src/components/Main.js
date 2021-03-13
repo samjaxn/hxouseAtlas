@@ -1,5 +1,5 @@
 import React, { Suspense, useRef, useState } from 'react'
-import { Graph, GetImageUrl } from './Graph'
+import { Graph, GetImageUrl, GetText } from './Graph'
 import NodeObject from './NodeObject'
 import JackyObject from './JackyObject'
 import TextObject from './TextObject'
@@ -19,44 +19,113 @@ const Main = ({mouse}) => {
     var g = createGraph();
 
     g.addNode('jacky', { scene: <JackyObject />, pos: [0,0,30]})
+
+    g.addNode('2011 - 2012', { scene: <TextObject children={"2011-2012"} />, pos: [0,0,30]})
+    g.addNode('2013 - 2018', { scene: <TextObject children={"2013-2018"} />, pos: [0,0,30]})
     g.addNode('2019', { scene: <TextObject children="2019" />, pos: [0,0,30]})
     g.addNode('2020', { scene: <TextObject children="2020" />, pos: [0,0,30]})
     g.addNode('2021', { scene: <TextObject children="2021" />, pos: [0,0,30]})
+    g.addNode('2022', { scene: <TextObject children="2022" />, pos: [0,0,30]})
+    g.addNode('2023', { scene: <TextObject children="2023" />, pos: [0,0,30]})
+    g.addNode('2024', { scene: <TextObject children="2024" />, pos: [0,0,30]})
+    g.addNode('2025', { scene: <TextObject children="2025" />, pos: [0,0,30]})
+    g.addNode('2026', { scene: <TextObject children="2026" />, pos: [0,0,30]})
+    g.addNode('2027', { scene: <TextObject children="2027" />, pos: [0,0,30]})
+    g.addNode('2028', { scene: <TextObject children="2028" />, pos: [0,0,30]})
+    g.addNode('2029', { scene: <TextObject children="2029" />, pos: [0,0,30]})
+    g.addNode('2030', { scene: <TextObject children="2030" />, pos: [0,0,30]})
+
+    g.addNode('rightArrow', { scene: <TextObject children={">"} />, pos: [0,0,30], pos2: [2.5, 0, 0], center: false})
+    g.addNode('leftArrow', { scene: <TextObject children={"<"} />, pos: [0,0,30], pos2: [-2.5, 0, 0], center: false})
+
     g.addNode('c4d', { scene: <TextObject children="3D MOTION DESIGNER" />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('dev', { scene: <TextObject children="SOFTWARE DEVELOPER" />, pos: [0,0,30], link: "http://www.jacky.design/"})
+
     g.addNode('v1', { scene: <ShapeObject />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('v2', { scene: <ShapeObject />, pos: [0,0,30], link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('v3', { scene: <ImageObject url={GetImageUrl('shoeLaundry')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('v4', { scene: <ImageObject url={GetImageUrl('hongShing')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
     g.addNode('v5', { scene: <ImageObject url={GetImageUrl('andras')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.instagram.com/jackyjacksn/"})
+
     g.addNode('blueJordan', { scene: <ImageObject url={GetImageUrl('jordanBlue2')} />, pos: [0,0,30], scaledCenter: true, link: "https://vimeo.com/464076439"})
     g.addNode('blueJordan2', { scene: <ImageObject url={GetImageUrl('jordanBlue1')} hoverable={false} />, pos: [0,0,30],  pos2: [10, 2, -1], center: false})
     g.addNode('blueJordan3', { scene: <ImageObject url={GetImageUrl('jordanBlue3')} hoverable={false} />, pos: [0,0,30],  pos2: [10, -2, -1], center: false})
-    g.addNode('blueJordanText', { scene: <TextObject children={"testing the text that will b \n blah blah"} scaleable={false} flatText={true}/>, pos: [0,0,30], pos2: [-10, 0, 0], center: false})
+    g.addNode('blueJordanText', { scene: <TextObject children={GetText('jordanBlue')} scaleable={false} flatText={true}/>, pos: [0,0,30], pos2: [-10, 0, 0], center: false})
+
+    g.addNode('ghost', { scene: <ImageObject url={GetImageUrl('ghost')} />, pos: [0,0,30], scaledCenter: true, link: "https://www.ghostatelier.com/" })
+
+    g.addNode('trish', { scene: <ImageObject url={GetImageUrl('trish')} />, pos: [0,0,30], scaledCenter: true })
+    g.addNode('trish2', { scene: <ImageObject url={GetImageUrl('trish2')} size={[6, 3.3]} hoverable={false} />, pos: [0,0,30], pos2: [10, 3, -1], center: false })
+    g.addNode('trish3', { scene: <ImageObject url={GetImageUrl('trish3')} size={[5,4.5]} hoverable={false} />, pos: [0,0,30], pos2: [10, -2, -1], center: false })
 
     g.addLink('jacky', 'c4d')
     g.addLink('jacky', 'dev')
+
     g.addLink('c4d', 'v1')
     g.addLink('c4d', 'v2')
     g.addLink('c4d', 'v3')
     g.addLink('c4d', 'v4')
     g.addLink('c4d', 'v5')
     g.addLink('c4d', 'blueJordan')
+
+    g.addLink('dev', 'ghost')
+    g.addLink('dev', 'trish')
+
+    g.addLink('rightArrow', '2011 - 2012')
+    g.addLink('rightArrow', '2013 - 2018')
+    g.addLink('rightArrow', '2019')
+    g.addLink('rightArrow', '2020')
+    g.addLink('rightArrow', '2021')
+    g.addLink('rightArrow', '2022')
+    g.addLink('rightArrow', '2023')
+    g.addLink('rightArrow', '2024')
+    g.addLink('rightArrow', '2025')
+    g.addLink('rightArrow', '2026')
+    g.addLink('rightArrow', '2027')
+    g.addLink('rightArrow', '2028')
+    g.addLink('rightArrow', '2029')
+
+    g.addLink('leftArrow', '2013 - 2018')
+    g.addLink('leftArrow', '2019')
+    g.addLink('leftArrow', '2020')
+    g.addLink('leftArrow', '2021')
+    g.addLink('leftArrow', '2022')
+    g.addLink('leftArrow', '2023')
+    g.addLink('leftArrow', '2024')
+    g.addLink('leftArrow', '2025')
+    g.addLink('leftArrow', '2026')
+    g.addLink('leftArrow', '2027')
+    g.addLink('leftArrow', '2028')
+    g.addLink('leftArrow', '2029')
+    g.addLink('leftArrow', '2030')
+    
+    g.addLink('2019', 'ghost')
+
     g.addLink('2020', 'v1')
     g.addLink('2020', 'v2')
     g.addLink('2020', 'v3')
     g.addLink('2020', 'v4')
     g.addLink('2020', 'v5')
-    g.addLink('2020', 'blueJordan')
+    g.addLink('2020', 'blueJordan')    
+
+    g.addLink('2021', 'trish')
+
     g.addLink('blueJordan', 'blueJordan2')
     g.addLink('blueJordan', 'blueJordan3')
     g.addLink('blueJordan', 'blueJordanText')
+
+    g.addLink('trish', 'trish2')
+    g.addLink('trish', 'trish3')
 
     const onClick = (clickedNode) => {
         let node = g.getNode(clickedNode)
 
         //if the clicked node is not the current center node
         if(clickedNode != activeNode){
+            if(clickedNode == 'leftArrow' || clickedNode == 'rightArrow'){
+                clickedNode = getYearNode(activeNode, clickedNode)
+                node = g.getNode(clickedNode)
+            }
             //if the node can be centerable
             if(node.data.center !== false){
                 g.forEachNode((node) => {
@@ -85,6 +154,70 @@ const Main = ({mouse}) => {
 
             if(urlLink){
                 window.open(urlLink, "_blank")
+            }
+        }
+    }
+
+    const getYearNode = (currentYear, direction) => {
+        //console.log(currentYear, direction)
+        if(direction == 'rightArrow'){
+            switch(currentYear){
+                case '2011 - 2012':
+                    return '2013 - 2018'
+                case '2013 - 2018':
+                    return '2019'
+                case '2019':
+                    return '2020'
+                case '2020':
+                    return '2021'
+                case '2021':
+                    return '2022'
+                case '2022':
+                    return '2023'
+                case '2023':
+                    return '2024'
+                case '2024':
+                    return '2025'
+                case '2025':
+                    return '2026'
+                case '2026':
+                    return '2027'
+                case '2027':
+                    return '2028'
+                case '2028':
+                    return '2029'
+                case '2029':
+                    return '2030'
+            }
+        }
+        else{
+            switch(currentYear){
+                case '2013 - 2018':
+                    return '2011 - 2012'
+                case '2019':
+                    return '2013 - 2018'
+                case '2020':
+                    return '2019'
+                case '2021':
+                    return '2020'
+                case '2022':
+                    return '2021'
+                case '2023':
+                    return '2022'
+                case '2024':
+                    return '2023'
+                case '2025':
+                    return '2024'
+                case '2026':
+                    return '2025'
+                case '2027':
+                    return '2026'
+                case '2028':
+                    return '2027'
+                case '2029':
+                    return '2028'
+                case '2030':
+                    return '2029'
             }
         }
     }

@@ -55,7 +55,7 @@ const App = () => {
       onMouseMove={onMouseMove}
       gl={{ antialias: true, alpha: false }}
       //camera={camera}
-      onCreated={({ gl }) => gl.setClearColor('black')}>
+      onCreated={({ gl }) => gl.setClearColor('#0a0a0a')}>
         <Camera position={[posX,posY,20]}/>
         <rectAreaLight width={20} height={20} color={"#ffffff"} intensity={5} position={[0, 5, 20]} lookAt={[0, 0, 0]} />
         {/* <Jacky mouse={mouse}/> */}

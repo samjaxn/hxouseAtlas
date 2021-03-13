@@ -1,7 +1,6 @@
 {
   "name": "hxouse",
   "version": "0.1.0",
-  "homepage": "https://samjaxn.github.io/hxouseAtlas/",
   "main": "src/index.js",
   "dependencies": {
     "@juggle/resize-observer": "^3.3.0",

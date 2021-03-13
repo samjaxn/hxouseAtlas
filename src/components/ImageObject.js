@@ -5,7 +5,7 @@ import { useSpring, animated, config } from 'react-spring/three'
 import { useLoader, useUpdate } from 'react-three-fiber'
 import { HoverImageShader } from '../resources/index'
 
-const ImageObject = ({ url, scaled, hoverable = true, ...props }) => {
+const ImageObject = ({ url, size=[5.3, 3], scaled, hoverable = true, ...props }) => {
     const [hovered, setHover] = useState(false)
 
     const [texture] = useMemo(() => {
@@ -21,7 +21,7 @@ const ImageObject = ({ url, scaled, hoverable = true, ...props }) => {
 
     useEffect(() => {
         document.body.style.cursor = (hovered && hoverable) ? 'pointer' : 'auto'
-      }, [hovered])
+    }, [hovered])
 
     return (
         <animated.scene scale={scale}>
@@ -30,7 +30,7 @@ const ImageObject = ({ url, scaled, hoverable = true, ...props }) => {
             onPointerOut={e => setHover(false)}
             {...props}
             >
-                <animated.planeBufferGeometry attach="geometry" args={[5.3, 3]} />
+                <animated.planeBufferGeometry attach="geometry" args={size} />
                 {/* <animated.shaderMaterial attach="material" transparent args={[HoverImageShader]} uniforms-texture-value={texture} uniforms-hover-value={hoverValue} /> */}
                 <meshStandardMaterial map={texture} attach="material" />
             </animated.mesh>

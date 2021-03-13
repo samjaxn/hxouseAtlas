@@ -7,6 +7,10 @@ import jordanBlue2 from '../content/jordanBlue2.png'
 import jordanBlue3 from '../content/jordanBlue3.png'
 import jordanRed1 from '../content/jordanRed1.png'
 import jordanOrange1 from '../content/jordanOrange1.png'
+import ghost1080 from '../content/ghostatelier1080.png'
+import trish from '../content/trish.png'
+import trish2 from '../content/trish2.png'
+import trish3 from '../content/trish3.png'
 
 const Graph = ({url}) => {
     return null
@@ -30,6 +34,14 @@ const GetImageUrl = (url) => {
             return jordanRed1
         case 'jordanOrange1':
             return jordanOrange1
+        case 'ghost':
+            return ghost1080
+        case 'trish':
+            return trish
+        case 'trish2':
+            return trish2
+        case 'trish3':
+            return trish3
         // case '':
         //     return
         default:
@@ -37,4 +49,13 @@ const GetImageUrl = (url) => {
     }
 }
 
-export {Graph, GetImageUrl}
+const GetText = (text) => {
+    switch(text){
+        case 'jordanBlue':
+            return "testing the text that will b \n blah blah"
+        default:
+            return ''
+    }
+}
+
+export {Graph, GetImageUrl, GetText}
